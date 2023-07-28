@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=lora-picogw-packet-forwarder
 PKG_VERSION:=0.1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=3
 
 PKG_SOURCE_URL:=https://codeload.github.com/Lora-net/picoGW_packet_forwarder/tar.gz/V$(PKG_VERSION)?
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
@@ -26,7 +26,7 @@ define Package/lora-picogw-packet-forwarder
   CATEGORY:=Network
   SUBMENU:=LoRaWAN
   TITLE:=Semtech packet-forwarder program
-  DEPENDS:=+libpicogw
+  DEPENDS:=+libpicogw +libubox-lua +libuci-lua +dkjson
 endef
 
 define Package/lora-picogw-packet-forwarder/description
@@ -47,6 +47,11 @@ endef
 define Package/lora-picogw-packet-forwarder/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/lora_pkt_fwd/pico_pkt_fwd $(1)/usr/sbin
+	$(INSTALL_BIN) ./files/gen_lora_global_conf $(1)/usr/sbin
+	$(INSTALL_DIR) $(1)/etc/init.d
+	$(INSTALL_BIN) ./files/lora_pkt_fwd.init $(1)/etc/init.d/lora_pkt_fwd
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_DATA) ./files/lora-global.config $(1)/etc/config/lora-global
 endef
 
 define Package/lora-picogw-packet-forwarder-utils/install

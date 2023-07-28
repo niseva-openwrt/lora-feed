@@ -82,7 +82,6 @@ define Package/libpicogw-utils/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_com_stress $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_pkt_logger $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_tx_continuous $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/bin/util_tx_test $(1)/usr/sbin
 endef
 
 $(eval $(call BuildPackage,libpicogw))
